@@ -85,3 +85,48 @@ Note: The specific commands and steps may vary depending on the database managem
 
 After updating the configuration file and restarting the web server, GLPI should start using the new database configuration.
 Make sure that the new database server is accessible from the GLPI server and that the specified username and password have the necessary privileges to access the new database.
+
+
+## Change database user password
+
+To change the password for a user in MySQL, you can follow these steps:
+
+1. Open a terminal or command prompt on the server where MySQL is installed.
+
+2. Log in to the MySQL server as the root user or a user with sufficient privileges. You can use the following command:
+
+   ```bash
+   mysql -u root -p
+   ```
+
+   You will be prompted to enter the password for the root user. Enter the password and press Enter.
+
+3. Once you are logged in to the MySQL server, switch to the database where the user's password needs to be changed. For example, if the user is in the `glpi` database, you can use the following command:
+
+   ```sql
+   USE glpi;
+   ```
+
+   Replace `glpi` with the actual name of the database.
+
+4. Change the password for the user using the `ALTER USER` statement. For example, if the user you want to change the password for is named `glpi_user` and you want to set the new password to `new_password`, you can use the following command:
+
+   ```sql
+   ALTER USER 'glpi_user'@'localhost' IDENTIFIED BY 'new_password';
+   ```
+
+   Replace `glpi_user` with the actual username, `localhost` with the appropriate hostname or IP address, and `new_password` with the desired new password.
+
+5. Flush the privileges to ensure that the changes take effect:
+
+   ```sql
+   FLUSH PRIVILEGES;
+   ```
+
+6. Exit the MySQL server:
+
+   ```sql
+   EXIT;
+   ```
+
+   This will return you to the command prompt.
